@@ -1,8 +1,18 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Sound from '../components/sound'
+import {useState} from 'react'
 
 export default function Home() {
+
+  const [song, setSong] = useState('idgaf')
+  const [songs, setSongs] = useState([{
+    title: 'IDGAF',
+    file: 'idgaf'
+  },{
+    title: 'Burn Up The Moon',
+    file: 'burnUpTheMoon'
+  }])
 
   return (
     <div className={styles.container}>
@@ -13,7 +23,17 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Sound />
+        <Sound song={song} key={song} />
+
+        <div style={{marginTop: '3rem', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '50%'}}>
+
+        
+        {songs.map((onesong, idx) => (
+          <div className="song-select" key={idx} onClick={() => setSong(onesong.file)} style={{padding: '1rem', border: '1px solid white', width: '50%', color: 'white'}}>
+            {onesong.title} {song === onesong.file ? '(Playing)' : '(Click to play)'}
+          </div>
+        ))}
+        </div>
       </main>
     </div>
   )

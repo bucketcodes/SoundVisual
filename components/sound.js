@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import {useEffect} from 'react'
 //import Slider from './Slider'
 
 const Sketch = dynamic(
@@ -50,6 +51,12 @@ class Particle {
 let x = 50
 let y = 50
 let rotate=0
+let song
+let amp
+let fft
+let ogbg
+let bg
+let particles = []
 
 
 const Sound = (props) => {
@@ -62,19 +69,13 @@ const Sound = (props) => {
         
     // }, [volume])
 
-	let song
-    let amp
-    let fft
-    let ogbg
-    let bg
-    let particles = []
 
     const setVolumeForSong = (volume) => {
         song.setVolume(volume)
     }
     
     const preload = (p5) => {
-        song = p5.loadSound('/song.mp3')
+        song = p5.loadSound(`/songs/${props.song}.mp3`)
         song.setVolume(0.5)
         bg = p5.loadImage('/bg.jpg')
 
@@ -117,6 +118,7 @@ const Sound = (props) => {
 
 	const draw = (p5) => {
         p5.translate(-(p5.width / 2), -(p5.height / 2))
+
 
         bg.resize(p5.width, 0)
         p5.image(bg, 0, 0)
@@ -161,7 +163,7 @@ const Sound = (props) => {
         //console.log(p5.width)
 		//x > p5.width - 70 / 2 ? x = 50 : x++;
 
-        let bass_power = fft.getEnergy('bass')
+        let bass_power = fft.getEnergy('lowMid')
 
         let geometry_power = 20
         let geomerty_size = 45
@@ -201,8 +203,11 @@ const Sound = (props) => {
 
 // Will only render on client-side
 	return (<>
+    <div style={{position: 'relative', minHeight: '50vh', display: 'block'}}>
     <Sketch windowResized={windowResized} preload={preload} setup={setup} draw={draw} />
-    <div style={{width: '100%'}}>
+
+    </div>
+    <div className="slider-container">
         <Slider setVolumeForSong={setVolumeForSong} />
     </div>
     
