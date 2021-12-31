@@ -1,4 +1,6 @@
 import dynamic from 'next/dynamic'
+//import Slider from './Slider'
+
 const Sketch = dynamic(
  () => import('react-p5').then((mod) => {
   require('p5/lib/addons/p5.sound')   
@@ -6,6 +8,8 @@ const Sketch = dynamic(
 }),
  {ssr: false}
 )
+
+const Slider = dynamic(() => import('./Slider'), {ssr: false})
 
 class Particle {
     constructor(p5, deleteParticle){
@@ -31,7 +35,6 @@ class Particle {
         if(amp > 0.3){
             this.p5.fill(`rgba(255,100,100,${0.5 + amp * 10})`) 
         }
-        console.log(amp)
 
         this.x+=this.xSpeed > 0 ? this.xSpeed + amp * 27 : this.xSpeed - amp * 27;
         this.y+=this.ySpeed > 0 ? this.ySpeed + amp * 27 : this.ySpeed - amp * 27;
@@ -50,16 +53,29 @@ let rotate=0
 
 
 const Sound = (props) => {
+
+    // useEffect(() => {
+    //     if(song){
+    //         //song.setVolume(volume / 100)
+    //     }
+    //     console.log(volume)
+        
+    // }, [volume])
+
 	let song
     let amp
     let fft
     let ogbg
     let bg
     let particles = []
+
+    const setVolumeForSong = (volume) => {
+        song.setVolume(volume)
+    }
     
     const preload = (p5) => {
         song = p5.loadSound('/song.wav')
-        //song.setVolume(0.2)
+        song.setVolume(0.5)
         bg = p5.loadImage('/bg.jpg')
 
 
@@ -90,7 +106,6 @@ const Sound = (props) => {
             particles.push(new Particle(p5, deleteParticle))
         }
 
-        console.log(window.p5)
 
         document.querySelector('canvas').addEventListener('mousedown', () => {
             song.isPlaying() ? song.pause() : song.play()
@@ -185,7 +200,13 @@ const Sound = (props) => {
     }
 
 // Will only render on client-side
-	return <Sketch windowResized={windowResized} preload={preload} setup={setup} draw={draw} />
+	return (<>
+    <Sketch windowResized={windowResized} preload={preload} setup={setup} draw={draw} />
+    <div style={{width: '100%'}}>
+        <Slider setVolumeForSong={setVolumeForSong} />
+    </div>
+    
+    </>)
 };
 
 export default Sound
