@@ -74,7 +74,7 @@ const Sound = (props) => {
     }
     
     const preload = (p5) => {
-        song = p5.loadSound('/song.wav')
+        song = p5.loadSound('/song.mp3')
         song.setVolume(0.5)
         bg = p5.loadImage('/bg.jpg')
 
