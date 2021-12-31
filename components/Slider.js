@@ -10,7 +10,7 @@ const Slider = ({setVolumeForSong}) => {
             setVolumeForSong(+e.target.value / 100)
             setVolume(e.target.value)
             }} className="slider"></input>
-            {volume}
+            
         </>
     )
     

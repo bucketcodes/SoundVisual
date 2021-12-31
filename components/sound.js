@@ -119,8 +119,12 @@ const Sound = (props) => {
 	const draw = (p5) => {
         p5.translate(-(p5.width / 2), -(p5.height / 2))
 
-
-        bg.resize(p5.width, 0)
+        if(p5.width > 600){
+            bg.resize(p5.width, 0)
+        }else{
+            bg.resize(0, p5.height)
+        }
+        
         p5.image(bg, 0, 0)
 
 
