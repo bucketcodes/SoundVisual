@@ -60,11 +60,41 @@ a {
 .slider-container{
   position: absolute;
   left: 0;
-  width: 50vh;
-  top: 47vh;
+  width: 45vh;
+  top: 45vh;
   transform-origin: left;
   transform: rotate(-90deg)
 }
+
+.play-pause{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 64px;
+  font-weight: 900;
+
+  transition: 500ms;
+}
+
+.play-pause:hover{
+  background-color: rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.play-pause.playing{
+  opacity: 0;
+}
+.play-pause.playing:hover{
+  opacity: 0.4;
+}
+
+
 
 @media screen and (max-width: 600px) {
   .slider-container{

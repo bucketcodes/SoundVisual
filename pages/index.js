@@ -23,7 +23,12 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Sound song={song} key={song} />
+        
+        <Sound song={song} />
+
+          
+        
+        
 
         <div style={{marginTop: '3rem', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '50%'}}>
 
