@@ -1,19 +1,24 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react"
 
-const Slider = ({setVolumeForSong}) => {
-    const [volume, setVolume] = useState(50)
+const Slider = ({ setVolumeForSong }) => {
+  const [volume, setVolume] = useState(50)
 
-    return(
-        <>
-        <input type="range" min={0} max={100} value={volume} onChange={(e) => {
-            e.preventDefault()
-            setVolumeForSong(+e.target.value / 100)
-            setVolume(e.target.value)
-            }} className="slider"></input>
-            
-        </>
-    )
-    
+  return (
+    <>
+      <input
+        type="range"
+        min={0}
+        max={100}
+        value={volume}
+        onChange={(e) => {
+          e.preventDefault()
+          setVolumeForSong(+e.target.value / 100)
+          setVolume(e.target.value)
+        }}
+        className="slider"
+      ></input>
+    </>
+  )
 }
 
 export default Slider
